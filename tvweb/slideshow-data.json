@@ -1,0 +1,48 @@
+{
+    "slideshow": {
+        "videos": [
+            {
+                "name": "Marilag__Live_at_The_Cozy_Cove__-_Dionela_-_Nine_Degrees_North__1080p__h264__1769480690.mp4",
+                "filename": "Marilag__Live_at_The_Cozy_Cove__-_Dionela_-_Nine_Degrees_North__1080p__h264__1769480690.mp4"
+            }
+        ],
+        "pictures": [
+            {
+                "name": "Screenshot_2026-01-22_153432_1769160206.png",
+                "filename": "Screenshot_2026-01-22_153432_1769160206.png"
+            },
+            {
+                "name": "Screenshot_2026-01-22_154059_1769160206.png",
+                "filename": "Screenshot_2026-01-22_154059_1769160206.png"
+            },
+            {
+                "name": "Screenshot_2026-01-22_155728_1769160206.png",
+                "filename": "Screenshot_2026-01-22_155728_1769160206.png"
+            }
+        ],
+        "order": []
+    },
+    "slideshowOrder": [
+        {
+            "filename": "Marilag__Live_at_The_Cozy_Cove__-_Dionela_-_Nine_Degrees_North__1080p__h264__1769480690.mp4",
+            "type": "video"
+        },
+        {
+            "filename": "Marilag__Live_at_The_Cozy_Cove__-_Dionela_-_Nine_Degrees_North__1080p__h264__1769480690.mp4",
+            "type": "video"
+        },
+        {
+            "filename": "Screenshot_2026-01-22_153432_1769160206.png",
+            "type": "picture"
+        },
+        {
+            "filename": "Screenshot_2026-01-22_154059_1769160206.png",
+            "type": "picture"
+        },
+        {
+            "filename": "Screenshot_2026-01-22_155728_1769160206.png",
+            "type": "picture"
+        }
+    ],
+    "lastUpdated": "2026-01-27 03:44:05"
+}

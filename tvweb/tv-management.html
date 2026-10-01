@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Player</title>
+    <!-- Browser tab icon -->
+    <link rel="icon" type="image/x-icon" href="tv.ico">
+    <!-- Bootstrap framework for responsive layout -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- TV management page styling -->
+    <link rel="stylesheet" href="tv-styles.css">
+</head>
+<body class="bg-light">
+    <div class="hero-banner text-light">
+        <div class="container-fluid hero-inner py-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h1 class="mb-1">TV Player</h1>
+                </div>
+                <div class="d-flex gap-2">
+                    <a href="login.html" class="btn btn-outline-light btn-lg">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid pt-4">
+        <!-- Video Players Section -->
+        <!-- Displays TV players dynamically -->
+        <div class="row mb-5" id="tvPlayersContainer">
+            <!-- Dynamic TV cards will be inserted here -->
+        </div>
+
+        <!-- Add TV Button -->
+        <div class="d-flex justify-content-center mb-5">
+            <button class="btn btn-lg btn-success" onclick="addNewTV()" style="width: 120px; height: 120px; font-size: 48px; border-radius: 10px;">
+                <i class="bi bi-plus"></i>
+            </button>
+        </div>
+        
+        <!-- Management Section -->
+        <!-- Single upload and content management for both TVs -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow mb-4 tv-content-card">
+                    <div class="card-header tv-content-header">
+                        <h2 class="card-title mb-0">TV Content</h2>
+                    </div>
+                    <div class="card-body tv-content-body">
+                        <div class="row mb-4">
+                            <!-- Upload Video Column -->
+                            <div class="col-12 col-md-6">
+                                <h3>Upload Video</h3>
+                                <form id="uploadVideoForm" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <input type="file" class="form-control" id="videoFile" accept="video/*" multiple required>
+                                    </div>
+                                    <!-- Video upload progress bar -->
+                                    <div id="videoProgressContainer" class="progress mb-3" style="display: none; height: 25px;">
+                                        <div id="videoProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                            <span id="videoProgressText" style="color: white; font-weight: bold;">0%</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-primary flex-grow-1" onclick="handleVideoUpload('content')">Add to Content</button>
+                                        <button type="button" class="btn btn-primary flex-grow-1" onclick="handleVideoUpload('slideshow')">Add to Slideshow</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <!-- Upload Picture Column -->
+                            <div class="col-12 col-md-6">
+                                <h3>Upload Picture</h3>
+                                <form id="uploadPictureForm" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <input type="file" class="form-control" id="pictureFile" accept="image/*" multiple required>
+                                    </div>
+                                    <!-- Picture upload progress bar -->
+                                    <div id="pictureProgressContainer" class="progress mb-3" style="display: none; height: 25px;">
+                                        <div id="pictureProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                            <span id="pictureProgressText" style="color: white; font-weight: bold;">0%</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-primary flex-grow-1" onclick="handlePictureUpload('content')">Add to Content</button>
+                                        <button type="button" class="btn btn-primary flex-grow-1" onclick="handlePictureUpload('slideshow')">Add to Slideshow</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <h3 class="mb-0">Current Content</h3>
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#contentListCollapse" aria-expanded="false" aria-controls="contentListCollapse">
+                                <i class="bi bi-chevron-down"></i> Show Files
+                            </button>
+                            <input type="text" id="contentSearchBar" class="form-control" placeholder="Search files..." style="max-width: 500px;" onkeypress="if(event.key==='Enter') filterContentList()">
+                        </div>
+                        <div class="collapse" id="contentListCollapse">
+                            <ul id="contentList" class="list-group">
+                                <!-- Placeholder for dynamic content -->
+                            </ul>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-between gap-3 mb-3 mt-4 flex-wrap">
+                            <div class="d-flex align-items-center gap-3 flex-wrap">
+                                <h3 class="mb-0">Slideshow</h3>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#slideshowListCollapse" aria-expanded="false" aria-controls="slideshowListCollapse" style="white-space: nowrap;">
+                                    <i class="bi bi-chevron-down"></i> Show Files
+                                </button>
+                                <input type="text" id="slideshowSearchBar" class="form-control" placeholder="Search files..." style="width: 500px;" onkeypress="if(event.key==='Enter') filterSlideshowList()">
+                            </div>
+                            <div class="d-flex align-items-center gap-2 flex-wrap">
+                                <select id="tvTargetSelector" class="form-select" style="width: 150px; height: 36px;">
+                                    <option value="1">TV 1</option>
+                                    <option value="2">TV 2</option>
+                                    <option value="both">All TVs</option>
+                                </select>
+                                <button class="btn btn-success btn-sm" onclick="startSlideshow()">Start Slideshow</button>
+                                <label class="mb-0" style="font-weight: 500;">Picture Delay:</label>
+                                <input type="number" id="pictureDelay" class="form-control" style="width: 80px; height: 36px;" value="5" min="0.1" max="60" step="0.1">
+                                <span class="mb-0">seconds</span>
+                            </div>
+                        </div>
+                        <div class="collapse" id="slideshowListCollapse">
+                            <ul id="slideshowList" class="list-group">
+                                <!-- Placeholder for slideshow content -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="tv-management.js"></script>
+</body>
+</html>
